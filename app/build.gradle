@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion project.ext.android.compileSdkVersion
+    buildToolsVersion project.ext.android.buildToolsVersion
+
     defaultConfig {
-        applicationId "com.cth.cuotiben"
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        applicationId project.ext.android.applicationId
+        minSdkVersion project.ext.android.minSdkVersion
+        targetSdkVersion project.ext.android.targetSdkVersion
+        versionCode project.ext.android.versionCode
+        versionName project.ext.android.versionName
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,5 +22,16 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile "com.android.support:appcompat-v7:${project.ext.supportVersion}"
+    compile "com.android.support:support-v13:${project.ext.supportVersion}"
+    compile "com.android.support:design:${project.ext.supportVersion}"
+    compile "com.android.support:recyclerview-v7:${project.ext.supportVersion}"
+    compile "com.android.support:cardview-v7:${project.ext.supportVersion}"
+    compile "com.android.support:multidex:${project.ext.multidexVersion}"
+
+    compile "com.jakewharton:butterknife:${project.ext.butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${project.ext.butterknifeVersion}"
+
+    compile "io.reactivex.rxjava2:rxjava:${project.ext.rxJavaVersion}"
+    compile "io.reactivex.rxjava2:rxandroid:${project.ext.rxAndroidVersion}"
 }

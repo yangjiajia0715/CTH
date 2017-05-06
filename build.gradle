@@ -18,6 +18,11 @@ allprojects {
     }
 }
 
+subprojects {
+    apply from: rootDir.path + '/config.gradle'
+}
+
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

@@ -1,6 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#2b2b2b</color>
+    <color name="colorAccent">#ffffff</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="black_2b">#2b2b2b</color>
+    <color name="cover_text_shadow">#7f000000</color>
+
+    <color name="activityBGColor">#FFFFFF</color>
+    <color name="listHintColor">#FFFFFF</color>
+    <color name="listInfoColor">#525252</color>
+    <color name="listTextColor">#333333</color>
+
+    <color name="progressTitleColor">#ADADAD</color>
+    <color name="processTextColor">#333333</color>
+    <color name="correctAnswerColor">#FF0000</color>
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+
+    <color name="grey">#a9a9a9</color>
+    <color name="transparent_background">#cc000000</color>
+
+    <color name="calendar_top_bg">#F5A0B3</color>
+
+    <color name="gray">#808080</color>
+    <color name="half_gray">#44808080</color>
+
+    <color name="common_item_pressed_background_color">#eeeeee</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="red">#FFFF0000</color>
+    <color name="english_color">#ff4cbcfa</color>
+    <color name="math_color">#ffffa500</color>
+    <color name="green">#ff00aa44</color>
+    <color name="histry_color">#ffececec</color>
+    <color name="parent_topic_color">#ffececec</color>
+    <color name="chemistry_color">#ff48dc6c</color>
+    <color name="biology_color">#ffececec</color>
+    <color name="new_color">#ffececec</color>
+    <color name="chinese_color">#ffe4e7e6</color>
+    <color name="politics_color">#ffff6600</color>
+    <color name="geography_color">#ffececec</color>
+    <color name="number_one_color">#db340f</color>
+    <color name="twitter_blue">#ff00aced</color>
+    <color name="blue">#2bb9e7</color>
+    <color name="physics_color">#ff6a71e6</color>
+
+    <color name="waveform_selected">#8dffff</color>
+    <color name="waveform_unselected">#106072</color>
+    <color name="waveform_unselected_bkgnd_overlay">#33000000</color>
+    <color name="selection_border">#ffffff</color>
+    <color name="playback_indicator">#ffff66</color>
+    <color name="grid_line">#ee01a9a9</color>
+    <color name="timecode">#ddffffdd</color>
+    <color name="timecode_shadow">#aa000000</color>
+    <color name="half_white">#4dffffff</color>
+
+    <color name="devider_line">#DDDDDD</color>
+    <color name="devider_line_e7e7e7">#e7e7e7</color>
+    <color name="create_topic_item_text">#555555</color>
+    <color name="selected_topic_color">#37b2ff</color>
+    <color name="selecte_topic_tips_color">#b3b3b3</color>
+    <color name="analysis_menu_pressed_color">#0099ff</color>
+    <color name="background_color">#eeeeee</color>
+    <!-- yangjiajia -->
+    <color name="radiobutton_bottom_selector_color">#3b9bfc</color>
+    <color name="radiobutton_bottom_topic_subject">#584f48</color>
+    <color name="app_color">#2fabf7</color>
+    <color name="app_color_cuotibao">#fea73d</color>
+    <color name="tag_text_color">#6d6d6d</color>
+
+    <color name="contact_add_friend_uncheck">#acacac</color>
+
+    <color name="login_font_color_01">#fdeee6</color>
+    <color name="login_font_color_02">#ffd3bf</color>
+
+    <color name="status_text">#ffffffff</color>
+
+    <color name="background_tab_pressed">#22979797</color>
+
+
+    <!-- 浅黑色 -->
+    <color name="light_black">#484848</color>
+    <!-- 浅灰色 -->
+    <color name="light_gray">#969696</color>
+
+    <color name="light_gray_1">#696969</color>
+
+
+    <!-- 颜色值区分 -->
+    <color name="dark_gray">#2b2b2b</color>
+    <!-- 功能模块区分 -->
+    <color name="general_bg">#f7f4eb</color>
+    <color name="list_view_divider_bg">#d0ccc9</color>
+
+    <color name="list_item_bg_normal">#f7f4eb</color>
+    <color name="list_item_bg_pressed">#969696</color>
+    <!--SubjectChineseFragment 中分割线的颜色，以后用它替换devider_line，2016-5-24 -->
+    <color name="divide_light">#eeedf2</color>
+    <!-- 分析报告主色 -->
+    <color name="analyse_report_dark">#040d47</color>
+    <color name="analyse_report_middle">#0b195f</color>
+    <color name="analyse_report_light">#0a175a</color>
+    <color name="analyse_report_item_bg">#05ffffff</color>
+    <!-- 分析报告 柱状图 -->
+    <color name="analyse_report_column_chart">#01a9e7</color>
+
+    <color name="text_analyse_report_top">#dedde2</color>
+    <color name="text_analyse_report_number">#fefeff</color>
+    <color name="light_orange">#fb7400</color>
+
+    <color name="color_fea73d">#fea73d</color>
+    <color name="color_dedee1">#dedee1</color>
+    <color name="color_1e1e1e">#1e1e1e</color>
+    <color name="color_ff4588">#ff4588</color>
+    <!-- 公开课 -->
+    <color name="public_class_normal">#30abf9</color>
+    <color name="public_class_pressed">#6f6f6f</color>
+
+    <color name="common_background_color">#eaeaea</color>
+    <color name="text_clear_color_96">#969696</color>
+
+    <!-- 浅灰色 -->
+    <color name="public_class_bg_and_divide_line_color">#f8f8f8</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+
+    <!-- contact -->
+    <color name="contact_list_hover">#d9d9d9</color>
+    <color name="contact_letter_idx_bg">#33000000</color>
+    <color name="contacts_letters_color">#80807c</color>
+    <color name="color_yellow_796413">#796413</color>
+    <color name="color_network_bar_bg_ee4b62">#ee4b62</color>
+    <color name="split_line_grey_color_d9d9d9">#D9D9D9</color>
+    <!--<color name="green_4DC0A4">#4DC0A4</color>-->
+    <color name="im_list_select_hover">#dbdbdb</color>
+    <color name="color_black_333333">#333333</color>
+    <color name="color_grey_999999">#999999</color>
+    <color name="color_aaaaaa_content_text">#ffaaaaaa</color>
+
+    <!-- session -->
+    <color name="color_message_default_bg">#e9ecf0</color>
+    <color name="input_panel_text_color_757572">#757572</color>
+    <color name="gray7">#c5c4c4</color>
+    <color name="color_gray_d9d9d9">#d9d9d9</color>
+    <!-- image picker -->
+    <color name="color_split_line_d9d9d9">#d9d9d9</color>
+    <color name="color_split_line_cccccc">#cccccc</color>
+
+    <color name="color_red_ccfa3c55">#ccfa3c55</color>
+    <color name="color_black_b3000000">#b3000000</color>
+    <color name="color_green_disable">#a2efe0</color>
+    <color name="color_green_00d3a9">#ff00D3A9</color>
+    <color name="color_grey_555555">#555555</color>
+    <color name="color_ff4c4d">#ffff4c4d</color>
+    <color name="color_3ca6fb">#ff3ca6fb</color>
+    <color name="color_acacac">#ffacacac</color>
+    <color name="color_f8f8f8">#f8f8f8</color>
+
+    <color name="text_clear_color_69">#696969</color>
+    <color name="text_color_969696">#969696</color>
+    <color name="text_color_4a4a4a">#4a4a4a</color>
+    <color name="text_color_eaeaea">#eaeaea</color>
+    <color name="text_color_0999ff">#0999ff</color>
+    <color name="color_EB402C">#EB402C</color>
+    <color name="color_FFFFAC">#FFFFAC</color>
+
+    <color name="xiao_ao_loading_text_color">#ffffff</color>
 </resources>

@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.cth.cuotiben.MainActivity">
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
+    <RadioGroup
+        android:id="@+id/bottom_navi_layout"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_tab_bg"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/bottom_navi_home_page"
+            style="@style/BottomNaviItem"
+            android:checked="true"
+            android:drawableTop="@drawable/bottom_navi_home_page_selector"
+            android:text="@string/bottom_navi_home_page" />
+
+        <RadioButton
+            android:id="@+id/bottom_navi_answer"
+            style="@style/BottomNaviItem"
+            android:drawableTop="@drawable/bottom_navi_answer_selector"
+            android:text="@string/bottom_navi_answer" />
+
+        <RadioButton
+            android:id="@+id/bottom_navi_create_wrong_topic"
+            style="@style/BottomNaviItem"
+            android:layout_gravity="bottom|center_horizontal"
+            android:drawableTop="@drawable/ic_create_topic"
+            android:paddingTop="11dp" />
+
+        <RadioButton
+            android:id="@+id/bottom_navi_chat"
+            style="@style/BottomNaviItem"
+            android:drawableTop="@drawable/bottom_navi_chat_selector"
+            android:text="@string/bottom_navi_chat" />
+
+        <RadioButton
+            android:id="@+id/bottom_navi_my"
+            style="@style/BottomNaviItem"
+            android:drawableTop="@drawable/bottom_navi_my_selector"
+            android:text="@string/bottom_navi_my" />
+    </RadioGroup>
 </RelativeLayout>
