@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.cth.cuotiben.R;
 
@@ -18,7 +20,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private Toolbar mToolBar;
+    public Toolbar mToolBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolBar != null) {
             setSupportActionBar(mToolBar);
-            initToolBar(mToolBar);
+            initToolBar();
         }
 
         ActionBar actionBar = getSupportActionBar();
@@ -41,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
     }
 
-    private void initToolBar(Toolbar mToolBar) {
+    protected void initToolBar() {
 
     }
 
@@ -51,6 +53,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initView();
 
     protected abstract void initData();
+
+    public void toastMessage(String text){
+        if(!TextUtils.isEmpty(text)){
+            Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onDestroy() {

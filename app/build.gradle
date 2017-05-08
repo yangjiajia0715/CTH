@@ -12,16 +12,49 @@ android {
         versionName project.ext.android.versionName
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    signingConfigs {
+        realse {
+            keyAlias 'android.keystore'
+            keyPassword System.getenv("KEY_PWD")
+            def signFilePath = project.hasProperty("SIGNING_FILE_PATH") ?
+                    project.getProperty("SIGNING_FILE_PATH") : 'D:/android.keystore'
+            storeFile new File(signFilePath)
+            storePassword System.getenv("KEY_PWD")
+        }
+
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
         }
     }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFile 'proguard.flags'
+            debuggable false
+            signingConfig signingConfigs.realse
+
+            buildConfigField "String", "IP_ADDRESS", "\"\""
+        }
+
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            versionNameSuffix '.debug'
+            debuggable true
+//            System.getenv("KEY_PWD")
+            buildConfigField "String", "IP_ADDRESS", "\"\""
+        }
+    }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
     compile "com.android.support:appcompat-v7:${project.ext.supportVersion}"
     compile "com.android.support:support-v13:${project.ext.supportVersion}"
     compile "com.android.support:design:${project.ext.supportVersion}"
@@ -32,6 +65,15 @@ dependencies {
     compile "com.jakewharton:butterknife:${project.ext.butterknifeVersion}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${project.ext.butterknifeVersion}"
 
+    compile "com.jakewharton.rxbinding2:rxbinding:${project.ext.rxBindingVersion}"
+
     compile "io.reactivex.rxjava2:rxjava:${project.ext.rxJavaVersion}"
     compile "io.reactivex.rxjava2:rxandroid:${project.ext.rxAndroidVersion}"
+
+    compile "com.squareup.okhttp3:okhttp:${project.ext.okhttp3Version}"
+    compile "com.squareup.okhttp3:logging-interceptor:${project.ext.okhttp3InterceptorVersion}"
+
+    compile "com.squareup.retrofit2:retrofit:${project.ext.retrofitVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${project.ext.retrofit2AdapterRxjava2Version}"
+    compile "com.squareup.retrofit2:converter-gson:${project.ext.retrofit2ConverterGsonVersion}"
 }
