@@ -80,7 +80,7 @@ public class ApiClient {
     }
 
     /**
-     *
+     * 获取验证码
      */
     public Observable<ResultBeanInfo<VerificationCodeInfo>> getVerificationCode(@NonNull Context context,
                                                                                 String phoneNumber,

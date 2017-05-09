@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/home_page_search"
+        android:icon="@drawable/top_bar_search"
         android:title="搜索"
         app:showAsAction="always"
         tools:visible = "true"

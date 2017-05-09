@@ -77,6 +77,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                .getVerificationCode(this, "13552590716", "cth")
 //                .subscribeOn(Schedulers.newThread())
 //                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnSubscribe(new Consumer<Disposable>() {
+//                    @Override
+//                    public void accept(@NonNull Disposable disposable) throws Exception {
+//
+//                    }
+//                })
 //                .subscribe(new Observer<ResultBeanInfo<VerificationCodeInfo>>() {
 //                    @Override
 //                    public void onSubscribe(@NonNull Disposable d) {
@@ -113,7 +119,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (checkedId) {
             case R.id.bottom_navi_home_page:
                 title.setText(R.string.bottom_navi_home_page);
-                mToolBar.setNavigationIcon(R.drawable.ic_scaner_black);
+                mToolBar.setNavigationIcon(R.drawable.top_bar_scan);
                 if (menuSearch != null) {
                     menuSearch.setVisible(true);
                 }

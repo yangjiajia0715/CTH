@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CTH</string>
     <string name="bottom_navi_home_page">主页</string>
-    <string name="bottom_navi_answer">错题</string>
+    <string name="bottom_navi_answer">答疑</string>
     <string name="bottom_navi_chat">聊天</string>
     <string name="bottom_navi_my">我的</string>
 </resources>

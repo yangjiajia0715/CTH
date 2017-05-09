@@ -20,6 +20,9 @@ import retrofit2.http.Query;
 
 public interface ApiServer {
 
+    /**
+     * 获取验证码
+     */
     @POST("LoginServer/appServlet")
     Observable<ResultBeanInfo<VerificationCodeInfo>> getVerificationCode(@Query("params") String params);
 
