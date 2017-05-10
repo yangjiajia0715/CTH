@@ -15,6 +15,7 @@ import com.cth.cuotiben.delegate.BannerAdapter;
 import com.cth.cuotiben.delegate.HomePagePartHeaderAdapter;
 import com.cth.cuotiben.delegate.NewsAdapter;
 import com.cth.cuotiben.delegate.TopicOrAnswerAdapter;
+import com.cth.cuotiben.log.Log;
 import com.cth.cuotiben.news.NewsListInfo;
 import com.cth.cuotiben.news.NewsResultBeanInfo;
 
@@ -33,6 +34,9 @@ import io.reactivex.functions.Consumer;
 
 public class HomePageFragment extends BaseFragment {
     private static final int NEWS_MAX_COUNT = 5;//学神攻略，兴趣部落 只显示5个
+    private int tempPupulId = 4294;
+    private int tempNewsId = 96;
+    private int tempNewsId1 = 130;
 
     @BindView(R.id.recycleview)
     RecyclerView recycleview;
@@ -96,16 +100,35 @@ public class HomePageFragment extends BaseFragment {
                                 List<NewsListInfo.ListBean> subList = list.subList(0, Math.min(list.size(), NEWS_MAX_COUNT));
                                 delegateAdapter.addAdapter(new HomePagePartHeaderAdapter());
                                 delegateAdapter.addAdapter(new NewsAdapter(subList));
+
+//                                delegateAdapter.addAdapter(new HomePagePartHeaderAdapter());
+//                                delegateAdapter.addAdapter(new NewsAdapter(subList));
                             }
-//                            if (list != null) {
-//                                for (int i = 0; i < list.size(); i++) {
-//                                    NewsListInfo.ListBean listBean = list.get(i);
-//                                    Log.d("=========news====listBean=" + listBean);
-//                                }
-//                            }
                         }
+                    }
+                });
 
+        //ok
+        ApiClient.getInstance()
+                .getNewsList(1, 2, 1)
+                .subscribe(new Consumer<NewsResultBeanInfo<NewsListInfo>>() {
+                    @Override
+                    public void accept(@NonNull NewsResultBeanInfo<NewsListInfo> resultBeanInfo) throws Exception {
+                        NewsListInfo data = resultBeanInfo.getData();
 
+                        Log.d("-------data=" + data);
+                        if (data != null && data.getList() != null) {
+                            Log.d("-------data size=" + data.getList().size());
+                            List<NewsListInfo.ListBean> list = data.getList();
+                            if (!list.isEmpty()) {
+                                List<NewsListInfo.ListBean> subList = list.subList(0, Math.min(list.size(), NEWS_MAX_COUNT));
+                                for (NewsListInfo.ListBean bean : subList) {
+                                    Log.d("----bean---data getTitle=" + bean.getTitle());
+                                }
+                                delegateAdapter.addAdapter(new HomePagePartHeaderAdapter());
+                                delegateAdapter.addAdapter(new NewsAdapter(subList));
+                            }
+                        }
                     }
                 });
     }

@@ -3,6 +3,7 @@ package com.cth.cuotiben.api;
 import com.cth.cuotiben.common.FileUploadInfo;
 import com.cth.cuotiben.common.ResultBeanInfo;
 import com.cth.cuotiben.common.VerificationCodeInfo;
+import com.cth.cuotiben.news.NewsDetailInfo;
 import com.cth.cuotiben.news.NewsListInfo;
 import com.cth.cuotiben.news.NewsResultBeanInfo;
 
@@ -38,4 +39,10 @@ public interface ApiServer {
      */
     @GET("LoginServer/news/list.json")
     Observable<NewsResultBeanInfo<NewsListInfo>> getNewsList(@Query("uid") int pupilId, @Query("type") int type, @Query("page") int page);
+
+    /**
+     * 新闻详情
+     */
+    @GET("LoginServer/news/detail.json")
+    Observable<NewsResultBeanInfo<NewsDetailInfo>> getNewsDetail(@Query("uid") int pupilId, @Query("news_id") int newsId);
 }

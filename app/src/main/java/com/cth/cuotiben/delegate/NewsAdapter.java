@@ -11,6 +11,7 @@ import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.cth.cuotiben.R;
+import com.cth.cuotiben.activity.NewsDetailActivity;
 import com.cth.cuotiben.log.Log;
 import com.cth.cuotiben.news.NewsListInfo;
 
@@ -32,7 +33,7 @@ public class NewsAdapter extends DelegateAdapter.Adapter<NewsAdapter.NewsHolder>
     private List<NewsListInfo.ListBean> datas;
     private SimpleDateFormat sdf;
     private SimpleDateFormat sdfNew;
-    private boolean needHeader = true;
+    private boolean needHeader = false;
 
     public NewsAdapter(List<NewsListInfo.ListBean> datas) {
         this.datas = datas;
@@ -79,6 +80,17 @@ public class NewsAdapter extends DelegateAdapter.Adapter<NewsAdapter.NewsHolder>
 
         String image = bean.getImage();
         Log.d("-----NewsAdapter-----image=" + image);
+        Log.d("-----NewsAdapter-----getNews_id=" + bean.getNews_id());
+
+        //temp
+        holder.itemView.setTag(bean);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewsListInfo.ListBean listBean = (NewsListInfo.ListBean) v.getTag();
+                NewsDetailActivity.start(v.getContext(), listBean.getNews_id());
+            }
+        });
     }
 
     @Override
