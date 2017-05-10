@@ -8,6 +8,8 @@ import com.cth.cuotiben.R;
 import com.cth.cuotiben.common.FileUploadInfo;
 import com.cth.cuotiben.common.ResultBeanInfo;
 import com.cth.cuotiben.common.VerificationCodeInfo;
+import com.cth.cuotiben.news.NewsListInfo;
+import com.cth.cuotiben.news.NewsResultBeanInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -109,6 +111,12 @@ public class ApiClient {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
 
+    }
+
+    public Observable<NewsResultBeanInfo<NewsListInfo>> getNewsList(int pupilId, int type, int page) {
+        return getApiServerWithGson().getNewsList(pupilId, type, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 }

@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">CTH</string>
+
     <string name="bottom_navi_home_page">主页</string>
     <string name="bottom_navi_answer">答疑</string>
     <string name="bottom_navi_chat">聊天</string>
     <string name="bottom_navi_my">我的</string>
+
+    <string name="text_person_topic_title">专属错题本</string>
+    <string name="text_person_topic_subtitle">养成良好习惯</string>
+    <string name="text_person_answer_title">找老师答疑</string>
+    <string name="text_person_answer_subtitle">错题不会不要紧</string>
 </resources>

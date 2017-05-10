@@ -45,8 +45,9 @@ android {
             signingConfig signingConfigs.debug
             versionNameSuffix '.debug'
             debuggable true
-//            System.getenv("KEY_PWD")
-            buildConfigField "String", "IP_ADDRESS", "\"\""
+
+            def ip = project.hasProperty("IP_DEBUG") ? project.getProperty("IP_DEBUG") : ''
+            buildConfigField "String", "IP_ADDRESS", ip
         }
     }
 
@@ -76,4 +77,8 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:${project.ext.retrofitVersion}"
     compile "com.squareup.retrofit2:adapter-rxjava2:${project.ext.retrofit2AdapterRxjava2Version}"
     compile "com.squareup.retrofit2:converter-gson:${project.ext.retrofit2ConverterGsonVersion}"
+
+    compile ("com.alibaba.android:vlayout:${project.ext.vlayoutVersion}@aar") {
+        transitive = true
+    }
 }

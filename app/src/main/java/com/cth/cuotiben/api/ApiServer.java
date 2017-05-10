@@ -3,9 +3,12 @@ package com.cth.cuotiben.api;
 import com.cth.cuotiben.common.FileUploadInfo;
 import com.cth.cuotiben.common.ResultBeanInfo;
 import com.cth.cuotiben.common.VerificationCodeInfo;
+import com.cth.cuotiben.news.NewsListInfo;
+import com.cth.cuotiben.news.NewsResultBeanInfo;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -30,4 +33,9 @@ public interface ApiServer {
     @POST("LoginServer/px/file/upload.json")
     Observable<ResultBeanInfo<FileUploadInfo>> uploadFile(@Part MultipartBody.Part part);
 
+    /**
+     * @param type 新闻类型：1:兴趣部落,2:学神攻略
+     */
+    @GET("LoginServer/news/list.json")
+    Observable<NewsResultBeanInfo<NewsListInfo>> getNewsList(@Query("uid") int pupilId, @Query("type") int type, @Query("page") int page);
 }
