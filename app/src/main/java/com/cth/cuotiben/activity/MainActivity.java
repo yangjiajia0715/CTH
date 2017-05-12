@@ -212,6 +212,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 return true;
             case R.id.action_search:
                 toastMessage("搜索");
+                TestActivity.start(this);
                 return true;
             case R.id.action_add_friend:
                 toastMessage("添加好友");

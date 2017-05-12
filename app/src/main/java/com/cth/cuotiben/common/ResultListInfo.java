@@ -9,16 +9,16 @@ import java.util.List;
  */
 
 public class ResultListInfo<T> implements Serializable {
-    private List<T> datas;
+    private List<T> data;
     private int flag;
     private String msg;
 
     public List<T> getDatas() {
-        return datas;
+        return data;
     }
 
-    public void setDatas(List<T> datas) {
-        this.datas = datas;
+    public void setDatas(List<T> data) {
+        this.data = data;
     }
 
     public int getFlag() {

@@ -5,8 +5,12 @@ import android.support.annotation.NonNull;
 
 import com.cth.cuotiben.BuildConfig;
 import com.cth.cuotiben.R;
+import com.cth.cuotiben.common.BeanInfo;
+import com.cth.cuotiben.common.FeeClassInfo;
 import com.cth.cuotiben.common.FileUploadInfo;
 import com.cth.cuotiben.common.ResultBeanInfo;
+import com.cth.cuotiben.common.ResultListInfo;
+import com.cth.cuotiben.common.TT;
 import com.cth.cuotiben.common.VerificationCodeInfo;
 import com.cth.cuotiben.news.NewsDetailInfo;
 import com.cth.cuotiben.news.NewsListInfo;
@@ -25,6 +29,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -54,7 +59,11 @@ public class ApiClient {
     }
 
     private ApiClient() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(READER_TIME_OUT, TimeUnit.SECONDS)
                 .build();
@@ -122,6 +131,20 @@ public class ApiClient {
 
     public Observable<NewsResultBeanInfo<NewsDetailInfo>> getNewsDetail(int pupilId, int newsId) {
         return getApiServerWithGson().getNewsDetail(pupilId, newsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ResultListInfo<FeeClassInfo>> getFeeClassList(int pupilId, int page) {
+        return getApiServerWithGson()
+                .getFeeClassList(pupilId, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+    }
+
+    public Observable<TT<BeanInfo>> getTT(int pupilId, int page) {
+        return getApiServerWithGson().getTT(pupilId, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
