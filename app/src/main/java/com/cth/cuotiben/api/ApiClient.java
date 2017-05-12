@@ -5,12 +5,10 @@ import android.support.annotation.NonNull;
 
 import com.cth.cuotiben.BuildConfig;
 import com.cth.cuotiben.R;
-import com.cth.cuotiben.common.BeanInfo;
 import com.cth.cuotiben.common.FeeClassInfo;
 import com.cth.cuotiben.common.FileUploadInfo;
 import com.cth.cuotiben.common.ResultBeanInfo;
 import com.cth.cuotiben.common.ResultListInfo;
-import com.cth.cuotiben.common.TT;
 import com.cth.cuotiben.common.VerificationCodeInfo;
 import com.cth.cuotiben.news.NewsDetailInfo;
 import com.cth.cuotiben.news.NewsListInfo;
@@ -141,12 +139,6 @@ public class ApiClient {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
-    }
-
-    public Observable<TT<BeanInfo>> getTT(int pupilId, int page) {
-        return getApiServerWithGson().getTT(pupilId, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
     }
 
 }

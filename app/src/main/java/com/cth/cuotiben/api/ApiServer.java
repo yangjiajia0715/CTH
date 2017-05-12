@@ -1,11 +1,9 @@
 package com.cth.cuotiben.api;
 
-import com.cth.cuotiben.common.BeanInfo;
 import com.cth.cuotiben.common.FeeClassInfo;
 import com.cth.cuotiben.common.FileUploadInfo;
 import com.cth.cuotiben.common.ResultBeanInfo;
 import com.cth.cuotiben.common.ResultListInfo;
-import com.cth.cuotiben.common.TT;
 import com.cth.cuotiben.common.VerificationCodeInfo;
 import com.cth.cuotiben.news.NewsDetailInfo;
 import com.cth.cuotiben.news.NewsListInfo;
@@ -52,7 +50,4 @@ public interface ApiServer {
 
     @GET("LoginServer/feeClass/findAllInSchoolByPupil.json")
     Observable<ResultListInfo<FeeClassInfo>> getFeeClassList(@Query("pupilId") int pupilId, @Query("_pageNum") int pageum);
-
-    @GET("LoginServer/feeClass/findAllInSchoolByPupil.json")
-    Observable<TT<BeanInfo>> getTT(@Query("pupilId") int pupilId, @Query("_pageNum") int pageum);
 }

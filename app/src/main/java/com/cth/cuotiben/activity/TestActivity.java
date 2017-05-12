@@ -7,7 +7,6 @@ import com.cth.cuotiben.R;
 import com.cth.cuotiben.api.ApiClient;
 import com.cth.cuotiben.common.FeeClassInfo;
 import com.cth.cuotiben.common.ResultListInfo;
-import com.cth.cuotiben.common.TT;
 import com.cth.cuotiben.log.Log;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * TestActivity
@@ -46,21 +44,6 @@ public class TestActivity extends BaseActivity {
     }
 
     private void getTT() {
-        ApiClient.getInstance()
-                .getTT(3428, 1)
-                .subscribe(new Consumer<TT>() {
-                    @Override
-                    public void accept(@NonNull TT tt) throws Exception {
-                        Log.d("TestActivity---tt--getFlag=" + tt.getFlag());
-                        List ttData = tt.getData();
-                        Log.d("TestActivity---tt--ttData=" + ttData);
-//                        Log.d("TestActivity---tt--data=" + android.R.attr.data);
-//                        if (android.R.attr.data != null) {
-//                            Log.d("TestActivity---tt--size=" + android.R.attr.data.size());
-
-//                        }
-                    }
-                });
     }
 
     private void getFeeClass() {
