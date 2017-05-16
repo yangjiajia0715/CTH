@@ -5,6 +5,7 @@ import com.cth.cuotiben.common.FileUploadInfo;
 import com.cth.cuotiben.common.ResultBeanInfo;
 import com.cth.cuotiben.common.ResultListInfo;
 import com.cth.cuotiben.common.VerificationCodeInfo;
+import com.cth.cuotiben.news.NewsComment;
 import com.cth.cuotiben.news.NewsDetailInfo;
 import com.cth.cuotiben.news.NewsListInfo;
 import com.cth.cuotiben.news.NewsResultBeanInfo;
@@ -48,6 +49,14 @@ public interface ApiServer {
     @GET("LoginServer/news/detail.json")
     Observable<NewsResultBeanInfo<NewsDetailInfo>> getNewsDetail(@Query("uid") int pupilId, @Query("news_id") int newsId);
 
+    /**
+     * 新闻评论列表
+     */
+    @GET("LoginServer/comment/list.json")
+    Observable<NewsResultBeanInfo<NewsComment>> getNewsComment(@Query("uid") int pupilId, @Query("news_id") int newsId, @Query("page") int page);
+
     @GET("LoginServer/feeClass/findAllInSchoolByPupil.json")
     Observable<ResultListInfo<FeeClassInfo>> getFeeClassList(@Query("pupilId") int pupilId, @Query("_pageNum") int pageum);
+
+
 }

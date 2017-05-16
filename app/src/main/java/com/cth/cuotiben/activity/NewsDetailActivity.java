@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.cth.cuotiben.R;
 import com.cth.cuotiben.api.ApiClient;
 import com.cth.cuotiben.log.Log;
+import com.cth.cuotiben.news.NewsComment;
 import com.cth.cuotiben.news.NewsDetailInfo;
 import com.cth.cuotiben.news.NewsResultBeanInfo;
 
@@ -54,8 +56,30 @@ public class NewsDetailActivity extends BaseActivity {
     private int tempNewsId1 = 130;
 
     private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case REFRESH_WEBVIEW_HEIGHT:
 
+                    Log.d("NewsDetailActivity----newsDetalHeaderAdapter=" + newsDetalHeaderAdapter);
+                    if (newsDetalHeaderAdapter != null && newsDetalHeaderAdapter.webView != null) {
+                        newsDetalHeaderAdapter.webView.loadUrl("javascript:MyApp.resize(document.body.getBoundingClientRect().height)");
+                        Log.d("NewsDetailActivity----newsDetalHeaderAdapter 99999=");
+                    }
+
+//                    if(activity.mWvNewsContent == null){
+//                        return;
+//                    }
+//                    activity.mWvNewsContent.loadUrl("javascript:MyApp.resize(document.body.getBoundingClientRect().height)");
+                    break;
+
+                default:
+                    break;
+            }
+        }
     };
+    private NewsDetalHeaderAdapter newsDetalHeaderAdapter;
 
     public static void start(Context context, int newsId) {
         Intent starter = new Intent(context, NewsDetailActivity.class);
@@ -85,8 +109,9 @@ public class NewsDetailActivity extends BaseActivity {
         //{"msg":"没有找到","s":404,"data":{}}
         //分享 注意downloadFlag
         ApiClient.getInstance()
-                .getNewsDetail(tempPupulId, tempNewsId)
+                .getNewsDetail(tempPupulId, newsId)
                 .subscribe(new Consumer<NewsResultBeanInfo<NewsDetailInfo>>() {
+
                     @Override
                     public void accept(@NonNull NewsResultBeanInfo<NewsDetailInfo> newsResultBeanInfo) throws Exception {
                         NewsDetailInfo newsDetailInfo = newsResultBeanInfo.getData();
@@ -95,8 +120,22 @@ public class NewsDetailActivity extends BaseActivity {
                         if (newsDetailInfo != null) {
                             Log.d("getNewsDetail--getDesc=" + newsDetailInfo.getDesc());
                         }
-                        delegateAdapter.addAdapter(new NewsDetalHeaderAdapter(newsDetailInfo));
+                        newsDetalHeaderAdapter = new NewsDetalHeaderAdapter(newsDetailInfo);
+                        delegateAdapter.addAdapter(newsDetalHeaderAdapter);
 
+                    }
+                });
+
+        ApiClient.getInstance()
+                .getNewsComment(tempPupulId,newsId,1)
+                .subscribe(new Consumer<NewsResultBeanInfo<NewsComment>>() {
+                    @Override
+                    public void accept(@NonNull NewsResultBeanInfo<NewsComment> newsResultBeanInfo) throws Exception {
+                        NewsComment newsComment = newsResultBeanInfo.getData();
+                        Log.d("NewsDetailActivity----newsComment=" + newsComment);
+                        if (newsComment != null && newsComment.getList() != null) {
+                            Log.d("NewsDetailActivity----size=" + newsComment.getList().size());
+                        }
                     }
                 });
 
@@ -108,7 +147,7 @@ public class NewsDetailActivity extends BaseActivity {
     class NewsDetalHeaderAdapter extends DelegateAdapter.Adapter<NewsDetalHeaderAdapter.NewsDetailHeaderHolder> {
 
         private NewsDetailInfo info;
-        WebView wvNewsContent;
+        public WebView webView;
 
         public NewsDetalHeaderAdapter(NewsDetailInfo newsDetailInfo) {
             this.info = newsDetailInfo;
@@ -127,20 +166,20 @@ public class NewsDetailActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(final NewsDetailHeaderHolder holder, int position) {
-            wvNewsContent = holder.wvNewsContent;
+            webView = holder.webView;
             holder.tvNewsTitle.setText(info.getTitle());
             holder.tvNewsAuthor.setText(info.getDesc());
             holder.tvNewsTime.setText(info.getDate());
 
-            holder.wvNewsContent.setBackgroundColor(Color.TRANSPARENT);
-            holder.wvNewsContent.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-            holder.wvNewsContent.getSettings().setJavaScriptEnabled(true); //设置支持Javascript
-            holder.wvNewsContent.requestFocus(); //触摸焦点起作用.如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
+            holder.webView.setBackgroundColor(Color.TRANSPARENT);
+            holder.webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+            holder.webView.getSettings().setJavaScriptEnabled(true); //设置支持Javascript
+            holder.webView.requestFocus(); //触摸焦点起作用.如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 //      luntanListview.getSettings().setBuiltInZoomControls(true); //页面添加缩放按钮
 //      luntanListview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);   //取消滚动条
 
             //点击链接由自己处理，而不是新开Android的系统browser响应该链接。
-            holder.wvNewsContent.setWebViewClient(new WebViewClient() {
+            holder.webView.setWebViewClient(new WebViewClient() {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     //设置点击网页里面的链接还是在当前的webview里跳转
@@ -151,21 +190,17 @@ public class NewsDetailActivity extends BaseActivity {
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
-                    mHandler.sendEmptyMessageDelayed(REFRESH_WEBVIEW_HEIGHT, 1000);
-                    Log.d("NewsDetailActivity--onPageFinished=");
-                    int height = view.getHeight();
-                    holder.wvNewsContent.loadUrl("javascript:MyApp.resize(document.body.getBoundingClientRect().height)");
+                    int height = view.getHeight();//50dp 150
+                    //原代码 延时1s
+                    holder.webView.loadUrl("javascript:MyApp.resize(document.body.getBoundingClientRect().height)");
                 }
             });
 
-            holder.wvNewsContent.setWebChromeClient(new WebChromeClient());
-            holder.wvNewsContent.addJavascriptInterface(this, "MyApp");
+            holder.webView.setWebChromeClient(new WebChromeClient());
+            holder.webView.addJavascriptInterface(this, "MyApp");
 
-//            ViewGroup.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            holder.wvNewsContent.setLayoutParams(lp);
             Log.d("NewsDetailActivity--getContent=" + info.getContent());
-            holder.wvNewsContent.loadDataWithBaseURL(null, info.getContent(), "text/html", "utf-8",
+            holder.webView.loadDataWithBaseURL(null, info.getContent(), "text/html", "utf-8",
                     null);
 //            showWebView(activity, mContent);
         }
@@ -173,35 +208,24 @@ public class NewsDetailActivity extends BaseActivity {
         @JavascriptInterface
         public void resize(final float height) {
 
-            if (wvNewsContent == null)
+            Log.d("NewsDetailActivity--resize--height=" + height);
+            if (webView == null) {
                 return;
+            }
+//            Log.d("NewsDetailActivity--resize--getContentHeight=" + webView.getContentHeight());
 
-            new Runnable() {
+            runOnUiThread(
+                    new Runnable() {
 
-                @Override
-                public void run() {
-                    float currentHeight = Math.max(height, wvNewsContent.getContentHeight());
-                    wvNewsContent.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (currentHeight * getResources().getDisplayMetrics().density)));
-                }
-            }.run();
-//            wvNewsContent.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    float currentHeight = Math.max(height, mWvNewsContent.getContentHeight());
-//                    mWvNewsContent.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (currentHeight * getResources().getDisplayMetrics().density)));
-//                }
-//            });
+                        @Override
+                        public void run() {
+                            float currentHeight = Math.max(height, webView.getContentHeight());
+                            webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (currentHeight * getResources().getDisplayMetrics().density)));
+                        }
+                    }
+            );
+
         }
-
-//        private void showWebView(final NewsContentActivity activity, String content) {
-//            // 设置WevView要显示的网页
-//            if(activity == null || activity.mWvNewsContent == null){
-//                return;
-//            }
-//            Log.d("------content = "+content);
-//            activity.mWvNewsContent.loadDataWithBaseURL(null, content, "text/html", "utf-8",
-//                    null);
-//        }
 
         @Override
         public int getItemCount() {
@@ -216,7 +240,7 @@ public class NewsDetailActivity extends BaseActivity {
             @BindView(R.id.tv_news_time)
             TextView tvNewsTime;
             @BindView(R.id.wv_news_content)
-            WebView wvNewsContent;
+            WebView webView;
             @BindView(R.id.tv_news_recommend_tips)
             TextView tvNewsRecommendTips;
             @BindView(R.id.ll_news_recommend)
@@ -227,11 +251,21 @@ public class NewsDetailActivity extends BaseActivity {
                 ButterKnife.bind(this, itemView);
             }
         }
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (newsDetalHeaderAdapter != null) {
+            WebView webView = newsDetalHeaderAdapter.webView;
+            if (webView != null) {
+                webView.clearHistory();
+                webView.clearCache(true);
+                webView.loadUrl("about:blank");
+                webView.freeMemory();
+//            webView.pauseTimers();
+                webView = null;
+            }
+        }
     }
 }
