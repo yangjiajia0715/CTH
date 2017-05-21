@@ -24,9 +24,13 @@ import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.cth.cuotiben.R;
 import com.cth.cuotiben.api.ApiClient;
 import com.cth.cuotiben.log.Log;
-import com.cth.cuotiben.news.NewsComment;
+import com.cth.cuotiben.news.NewsCommentInfo;
 import com.cth.cuotiben.news.NewsDetailInfo;
+import com.cth.cuotiben.news.NewsListBeanInfo;
 import com.cth.cuotiben.news.NewsResultBeanInfo;
+import com.cth.cuotiben.news.NewsResultListInfo;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -126,15 +130,17 @@ public class NewsDetailActivity extends BaseActivity {
                     }
                 });
 
+//        Log.d("NewsDetailActivity----newsComment=" + newsComment);
         ApiClient.getInstance()
                 .getNewsComment(tempPupulId,newsId,1)
-                .subscribe(new Consumer<NewsResultBeanInfo<NewsComment>>() {
+                .subscribe(new Consumer<NewsResultListInfo<NewsCommentInfo>>() {
                     @Override
-                    public void accept(@NonNull NewsResultBeanInfo<NewsComment> newsResultBeanInfo) throws Exception {
-                        NewsComment newsComment = newsResultBeanInfo.getData();
-                        Log.d("NewsDetailActivity----newsComment=" + newsComment);
-                        if (newsComment != null && newsComment.getList() != null) {
-                            Log.d("NewsDetailActivity----size=" + newsComment.getList().size());
+                    public void accept(@NonNull NewsResultListInfo<NewsCommentInfo> newsCommentNewsResultListInfo) throws Exception {
+                        NewsListBeanInfo<NewsCommentInfo> data = newsCommentNewsResultListInfo.getData();
+                        Log.d("NewsDetailActivity----data=" + data);
+                        if (data != null) {
+                            List<NewsCommentInfo> list = data.getList();
+                            Log.d("NewsDetailActivity----list=" + list.size());
                         }
                     }
                 });

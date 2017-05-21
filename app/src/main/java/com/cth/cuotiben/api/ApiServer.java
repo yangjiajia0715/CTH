@@ -5,10 +5,11 @@ import com.cth.cuotiben.common.FileUploadInfo;
 import com.cth.cuotiben.common.ResultBeanInfo;
 import com.cth.cuotiben.common.ResultListInfo;
 import com.cth.cuotiben.common.VerificationCodeInfo;
-import com.cth.cuotiben.news.NewsComment;
+import com.cth.cuotiben.news.NewsCommentInfo;
 import com.cth.cuotiben.news.NewsDetailInfo;
 import com.cth.cuotiben.news.NewsListInfo;
 import com.cth.cuotiben.news.NewsResultBeanInfo;
+import com.cth.cuotiben.news.NewsResultListInfo;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -53,7 +54,7 @@ public interface ApiServer {
      * 新闻评论列表
      */
     @GET("LoginServer/comment/list.json")
-    Observable<NewsResultBeanInfo<NewsComment>> getNewsComment(@Query("uid") int pupilId, @Query("news_id") int newsId, @Query("page") int page);
+    Observable<NewsResultListInfo<NewsCommentInfo>> getNewsComment(@Query("uid") int pupilId, @Query("news_id") int newsId, @Query("page") int page);
 
     @GET("LoginServer/feeClass/findAllInSchoolByPupil.json")
     Observable<ResultListInfo<FeeClassInfo>> getFeeClassList(@Query("pupilId") int pupilId, @Query("_pageNum") int pageum);
